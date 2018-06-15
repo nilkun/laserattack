@@ -1,6 +1,7 @@
+*************************************************
 Lasers from space!!!
 (c) Nilkun 2018
-
+*************************************************
 
 A thrilling 2D action game in dark colors.
 
