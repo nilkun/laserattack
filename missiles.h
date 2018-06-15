@@ -10,21 +10,38 @@ class MissileHandler {
 
 public:
 
+/*  WHAT DOES A MISSILE NEED TO KNOW?
+    1. trajectory
+    2. current position
+    3. going or leaving
 
-  struct Missile {
-    int ground = 600;
+*/
+
+  struct Missile {            // Individual missiles
+    SDL_Rect trajectory;
+    SDL_Point currentLocation;
+    float xToYRatio;
+    int yVelocity;
+
+    bool remove = false;
+    bool isAlive = true;
+
+    Uint32 fader=0xFF00FFFF;
+
+        int radius = 1;
+
+    int ground = 600;         //
     int kill = 0;
     bool hitCity = false;
     bool awardPoints = false;
 
-    int radius = 1;
     int speed = 0;
     float ratio;
-    Uint32 fader=0xFF00FFFF;
-    bool remove = false;
-    bool isAlive = true;
+
     float x = 0;
     float y = 0;
+    int screenWidth = 1024;
+    int screenHeight = 600;
 
     SDL_Rect course; // the projectile course
     Missile();

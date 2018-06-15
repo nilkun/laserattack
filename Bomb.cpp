@@ -24,9 +24,12 @@ void BombHandler::update(CollisionDetection *collision, std::list<MissileHandler
     }
     else {
       for (std::list<MissileHandler::Missile>::iterator missile = missiles -> begin(); missile != missiles -> end();) {
-        if (collision -> circleAndPoint(bomb -> x, bomb -> y, bomb -> radius, missile -> x, missile -> y)) {
-         missile -> isAlive = false;
-         missile -> awardPoints = true;
+        if(missile -> isAlive)
+        {
+          if (collision -> circleAndPoint(bomb -> x, bomb -> y, bomb -> radius, missile -> currentLocation.x, missile -> currentLocation.y)) {
+           missile -> isAlive = false;
+           missile -> awardPoints = true;
+          }
         }
         ++missile;
       }

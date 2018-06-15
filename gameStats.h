@@ -2,10 +2,10 @@
 #define __GAMESTATS_H__
 #include <string>
 #include <SDL2/SDL.h>
-#include "imageCreator.h"
+#include "../gameEngine/creatorTools/CreatorTools.h"
 class GameStats {
 
-  ImageCreator creator;
+  TextureCreator creator;
 
   SDL_Texture *statusText;
   SDL_Texture *scoreText;

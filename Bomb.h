@@ -1,12 +1,13 @@
-#ifndef __BOMBS_H_INCLUDED__
-#define __BOMBS_H_INCLUDED__
+#ifndef __BOMBS_H__
+#define __BOMBS_H__
+
 #include <SDL2/SDL.h>
 #include <list>
 #include <stack>
 #include <SDL2/SDL2_gfxPrimitives.h>  // for circles
 
 #include <iostream>
-#include "collisionDetection.h"
+#include "../gameEngine/collisionDetection/collisionDetection.h"
 #include "missiles.h"
 
 class BombHandler {

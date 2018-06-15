@@ -1,5 +1,4 @@
 #include "eventHandler.h"
-#include <iostream>
 
 EventHandler::EventHandler() { Mouse mouse; };
 
@@ -15,7 +14,6 @@ ACTIONS EventHandler::processEvents(){
           case SDL_BUTTON_LEFT:
           {
             SDL_GetMouseState(&mouse.x, &mouse.y);
-            std::cout << mouse.x;
             return CLICKED_LEFT;
           }
           case SDL_BUTTON_RIGHT:

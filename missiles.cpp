@@ -7,37 +7,50 @@ MissileHandler::MissileHandler() {
 
 MissileHandler::Missile::Missile() {
 
-  // Temporary values
-  int screenWidth = 1024;
-  int screenHeight = 600;
+  trajectory.x = rand()%screenWidth;
+  trajectory.y = 0;
+  trajectory.w = rand()%screenWidth;
+  trajectory.h = screenHeight;
 
-  course.x = rand()%screenWidth;
-  course.y = 0;
-  course.w = rand()%screenWidth;
-  course.h = screenHeight;
+  currentLocation.x = trajectory.x;
+  currentLocation.y = trajectory.y;
 
-  speed = rand()%5 + 2;
-  ratio = (float)(course.w - course.x)/(course.h - course.y);
-  // if (ratio < 0) ratio = -ratio;
-  y = course.y;
-  x = course.x;
+  yVelocity = rand()%5 + 2;
+  xToYRatio = (float)(trajectory.w - trajectory.x)/(trajectory.h - trajectory.y);
+  // This value is used to calculate the X location.
+
+  // reuse width for resetting x!
+  trajectory.w = trajectory.x;
+
+  isAlive = true;
+  hitCity = false;
+  remove = false;
+
+// GET RID OF THIS!!!
+  ground = 600;
+
 }
 
 void MissileHandler::Missile::update()
 {
   if(isAlive) {
-    y += speed;
-    x = course.x + y * ratio;
-    if( y >= ground) // If missile hits ground
+    currentLocation.y += yVelocity;
+    currentLocation.x = trajectory.x + currentLocation.y * xToYRatio;
+
+    if( currentLocation.y >= ground) // If missile hits ground...
     {
       isAlive = false;
       hitCity = true;
     }
-  } else {
-    course.y += speed;
-    speed++;
-    course.x = x - ((y - course.y) * ratio);
-    if( course.y >= y) // if surpassed bottom then erase
+  }
+  else {
+    trajectory.y += yVelocity;
+    yVelocity++;
+
+    // currentLocation.x is the same as trajectory.w
+    trajectory.x = trajectory.w + trajectory.y * xToYRatio;
+
+    if( trajectory.y >= currentLocation.y) // If the beginning of the line has passed the end...
     {
       remove = true;
     }
@@ -53,11 +66,12 @@ void MissileHandler::draw(SDL_Renderer* renderer)
 {
   for(Missile &missile : missiles) {
     SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-    SDL_RenderDrawLine(renderer, missile.course.x, missile.course.y, missile.x, missile.y);
-    if(!missile.isAlive) {
-      filledCircleColor(renderer, missile.x, missile.y, missile.radius, missile.fader);
+    SDL_RenderDrawLine(renderer, missile.trajectory.x, missile.trajectory.y, missile.currentLocation.x, missile.currentLocation.y);
+
+    if(!missile.isAlive) { // If the missile is dead, then do this...
+      filledCircleColor(renderer, missile.currentLocation.x, missile.currentLocation.y, missile.radius, missile.fader);
       missile.fader-=0x0F000F00;
-      missile.radius++;
+      missile.radius+=3;
     }
   }
 }
