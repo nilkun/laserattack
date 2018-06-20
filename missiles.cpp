@@ -1,8 +1,18 @@
 #include "missiles.h"
 #include <list>
 
+// MissileHandler::checkNew() {
+//
+// }
+
 
 MissileHandler::MissileHandler() {
+}
+void MissileHandler::clear() {
+  missiles.clear();
+}
+bool MissileHandler::isEmpty() {
+  return missiles.empty();
 }
 
 MissileHandler::Missile::Missile() {
@@ -16,6 +26,32 @@ MissileHandler::Missile::Missile() {
   currentLocation.y = trajectory.y;
 
   yVelocity = rand()%5 + 2;
+  xToYRatio = (float)(trajectory.w - trajectory.x)/(trajectory.h - trajectory.y);
+  // This value is used to calculate the X location.
+
+  // reuse width for resetting x!
+  trajectory.w = trajectory.x;
+
+  isAlive = true;
+  hitCity = false;
+  remove = false;
+
+// GET RID OF THIS!!!
+  ground = 600;
+
+}
+
+MissileHandler::Missile::Missile(int &speed) {
+
+  trajectory.x = rand()%screenWidth;
+  trajectory.y = 0;
+  trajectory.w = rand()%screenWidth;
+  trajectory.h = screenHeight;
+
+  currentLocation.x = trajectory.x;
+  currentLocation.y = trajectory.y;
+
+  yVelocity = speed;
   xToYRatio = (float)(trajectory.w - trajectory.x)/(trajectory.h - trajectory.y);
   // This value is used to calculate the X location.
 
@@ -57,8 +93,8 @@ void MissileHandler::Missile::update()
   }
 }
 
-void MissileHandler::add() {
-  Missile adding;
+void MissileHandler::add(int &speed) {
+  Missile adding(speed);
   missiles.push_back(adding);
 }
 
@@ -76,16 +112,13 @@ void MissileHandler::draw(SDL_Renderer* renderer)
   }
 }
 
-void MissileHandler::update(GameStats *stats) {
+void MissileHandler::update(int &hits) {
   for (std::list<Missile>::iterator missile = missiles.begin(); missile != missiles.end();) {
     missile -> update();
     if(missile -> hitCity) {
       missile -> hitCity = false;
-      stats -> hits++;
-    }
-    else if(missile -> awardPoints) {
-      missile -> awardPoints = false;
-      stats -> score+= stats -> missile;
+      hits++;
+      if(hits > 5) hits = 5;
     }
     if (missile -> remove) {
        missile = missiles.erase(missile);

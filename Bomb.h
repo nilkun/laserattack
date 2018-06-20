@@ -15,8 +15,8 @@ class BombHandler {
   struct Bomb {
     int x;
     int y;
-    float radius                =1;
-    int expansion;
+    float radius;
+    int expansion = 2;
     int maxsize;
     Uint32 fader=0xFF0000FF;
     bool remove;
@@ -29,7 +29,8 @@ public:
   std::list<Bomb> bombs;
   void add(int &x, int &y);
   void draw(SDL_Renderer* renderer);
-  void update(CollisionDetection *collision, std::list<MissileHandler::Missile> *missiles);
+  void clear();
+  void update(CollisionDetection *collision, std::list<MissileHandler::Missile> *missiles, int &score, int &points);
   BombHandler();
   std::stack<int> removeIndex;
 };

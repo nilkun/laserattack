@@ -45,15 +45,17 @@ public:
 
     SDL_Rect course; // the projectile course
     Missile();
+    Missile(int &speed);
     void update();
     void display(SDL_Renderer* renderer);
   };
-
+  bool isEmpty();
   MissileHandler();
+  void clear();
   std::list<Missile> missiles;
-  void add();
+  void add(int &speed);
   void draw(SDL_Renderer *renderer);
-  void update(GameStats *stats);
+  void update(int &hits);
 };
 
 #endif

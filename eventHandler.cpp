@@ -29,13 +29,13 @@ ACTIONS EventHandler::processEvents(){
           {
             return ESCAPE;
           }
-          case SDLK_F1:
+          case SDLK_y:
           {
-            return DEFAULT;
+            return _Y_;
           }
-          case SDLK_F2:
+          case SDLK_n:
           {
-            return DEFAULT;
+            return _N_;
           }
           case SDLK_F3:
           {
