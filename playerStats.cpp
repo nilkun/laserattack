@@ -4,13 +4,14 @@ void Player::init() {
   score = 0;
   level = 0;
   loadLevel();
+  missileSpeed = 1;
 }
 void Player::loadLevel() {
   level++;
-  numberOfMissiles = missilesLeft = 10;
+  numberOfMissiles = missilesLeft = 9;
   // + level;
   missilePoints = 10 * level;
-  missileSpeed = level * 2;
+  missileSpeed *= 1.2;
   bombCost = 2 * level;
   cityHits = 0;
   missileFrequency = 50;

@@ -20,8 +20,10 @@ public:
   struct Missile {            // Individual missiles
     SDL_Rect trajectory;
     SDL_Point currentLocation;
+    float x_location;
+    float y_location;
     float xToYRatio;
-    int yVelocity;
+    float yVelocity;
 
     bool remove = false;
     bool isAlive = true;
@@ -45,7 +47,7 @@ public:
 
     SDL_Rect course; // the projectile course
     Missile();
-    Missile(int &speed);
+    Missile(float &speed);
     void update();
     void display(SDL_Renderer* renderer);
   };
@@ -53,7 +55,7 @@ public:
   MissileHandler();
   void clear();
   std::list<Missile> missiles;
-  void add(int &speed);
+  void add(float &speed);
   void draw(SDL_Renderer *renderer);
   void update(int &hits);
 };

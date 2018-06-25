@@ -8,7 +8,7 @@ struct Player{
 
   int numberOfMissiles;
   int missilePoints;
-  int missileSpeed;
+  float missileSpeed;
   int missilesLeft;
   int bombCost;
   int levelNumber;

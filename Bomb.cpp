@@ -30,7 +30,7 @@ void BombHandler::update(CollisionDetection *collision, std::list<MissileHandler
       for (std::list<MissileHandler::Missile>::iterator missile = missiles -> begin(); missile != missiles -> end();) {
         if(missile -> isAlive)
         {
-          if (collision -> circleAndPoint(bomb -> x, bomb -> y, bomb -> radius, missile -> currentLocation.x, missile -> currentLocation.y)) {
+          if (collision -> pointVSCircle(bomb -> x, bomb -> y, missile -> x_location, missile -> y_location, bomb -> radius)) {
            missile -> isAlive = false;
            missile -> awardPoints = true;
            score += points;
