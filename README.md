@@ -15,4 +15,4 @@ THESE ARE SOME THINGS THAT WOULD BE NICE TO ADD:
 * Different skylines (real cities)
 
 This code is really messy. I am trying to clean it up.
-Please bear in mind that this is my first complete game ever.
+Please bear in mind that this is my first completed game ever.
